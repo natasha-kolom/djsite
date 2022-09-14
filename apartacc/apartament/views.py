@@ -1,10 +1,13 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 # Create your views here.
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
+from .models import *
 
+menu = ["О сайте", "Добавить статью", "Обратная связь", "Войти"]
 
 def index(request):
-    return HttpResponse('App Page "Apartaments"')
+    posts = Women.objects.all()
+    return render(request, 'apartament/index.html', {'posts': posts, 'menu': menu, 'title': 'Главная страница'})
 
 def categories(request, catid):
     if request.GET:
